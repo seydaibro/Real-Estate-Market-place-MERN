@@ -3,10 +3,12 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
+import cors from 'cors'
 
 dotenv.config()
 const app = express()
 app.use(express.json())
+app.use(cors({origin: true, credentials:true}))
 
 
 mongoose.connect(process.env.MONGO_URL)
@@ -25,3 +27,17 @@ mongoose.connect(process.env.MONGO_URL)
 
 app.use("/api/user", userRouter)
 app.use("/api/auth", authRouter)
+
+
+
+app.use((err, req, res , next)=>{
+const statusCode = err.statusCode || 500
+const message = err.message || "internal server err"
+return res.status(statusCode).json({
+  success: false,
+  statusCode,
+  message,
+
+})
+})
+

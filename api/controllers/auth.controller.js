@@ -1,20 +1,20 @@
+import User from '../modle/user.model.js';
+import bcrypt from 'bcryptjs';
 
-import User from '../modle/user.model.js'
-import bcryptjs from 'bcryptjs'
+export const register = async (req, res, next) => {
+  console.log(req.body);
 
-export const register =  async (req, res)=>{
+  try {
+    const { username, email, password } = req.body;
 
-    try{
-        const { username, email, password} = req.body
-        const hashedPassword =bcryptjs.hashSync(password, 10)
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({ username, email, password: hashedPassword });
+    await newUser.save();
     
-        const newUser = new User ({username, email, hashedPassword})
-        await newUser.save()
-        res.status(200).json('user created successfully')
-    }catch(err){
-      res.status(500).json(err.message)
-    }
-   
-}
-
-// shubo 
+    res.status(200).json('User created successfully');
+  } catch (error) {
+    next(error)
+  }
+};
