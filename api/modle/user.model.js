@@ -16,6 +16,10 @@ password:{
     required:true,
     
 },
+avatar:{
+    type:String,
+    default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQioKINfcXK55EtAkOsFMG_CnHibqyNRI-tiPq_fGUVig&s"
+},
 
 
 },{timestamps: true})
