@@ -26,3 +26,15 @@ const updateUser = await User.findByIdAndUpdate(req.params.id,{
    }
 
 }
+
+
+export const deleteUser = async(req, res, next)=>{
+    if(req.user.id !== req.params.id) return next(errHandler(401, 'you can only delete your account'))
+    try{
+await User.findByIdAndDelete(req.params.id)
+res.status(200).json('user has been deleeted!').clearCookie()
+}catch(err){
+    next(err)
+}
+
+}

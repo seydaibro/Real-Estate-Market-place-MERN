@@ -4,8 +4,11 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable,} from 'firebase/s
 import {app}  from '../firebase'
 import {makeRequest }from '../axios'
 import { updateUserStart,
-   updateUserSuccess,
-    updateUserFailure } from '../redux/user/UserSlice'
+       updateUserSuccess,
+       updateUserFailure ,
+       deleteUserStart,
+       deleteUserSuccess,
+       deleteUserFailure} from '../redux/user/UserSlice'
     
 
 export const Profile = () => {
@@ -60,7 +63,7 @@ export const Profile = () => {
       const response = await makeRequest.post(`/user/update/${currentUser._id}`, formData);
       if (response.success === false) {
         console.log(response)
-        dispatch(updateUserFailure(response.data.message));
+        dispatch(updateUserFailure(response.message));
         return;
       }
       dispatch(updateUserSuccess(response.data));
@@ -69,6 +72,23 @@ export const Profile = () => {
       dispatch(updateUserFailure(error.response.data.message))
       console.log(error)
     }
+  }
+
+  const handleDeleteUser = async(e) =>{
+      e.preventDefault()
+      dispatch(deleteUserStart())
+      try{
+        const response = await makeRequest.delete(`/user/delete/${currentUser._id}`, formData);
+        if (response.success === false){
+          dispatch(deleteUserFailure(response.data.message))
+          return   
+        }
+        dispatch(deleteUserSuccess(response.data))
+        console.log(response)
+      }catch(err){
+        dispatch(deleteUserFailure(err.response.data.message))
+      }
+
   }
   return (
     <div  className='p-3  max-w-lg   mx-auto'>
@@ -136,7 +156,7 @@ export const Profile = () => {
           </button>
         </form>
         <div className='flex  justify-between mt-5'>
-          <span className='text-red-700 cursor-pointer'>Dlete account</span>
+          <span onClick={handleDeleteUser} className='text-red-700 focus:opacity-90 cursor-pointer'>Dlete account</span>
           <span className='text-red-700 cursor-pointer'>Sign out</span>
         </div>
         <p className='text-red-700 mt-5'>{error ? error : ''}</p>
