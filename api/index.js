@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
+import listRouter from './routes/listing.route.js'
 import cors from 'cors'
 import  cookieParser from 'cookie-parser'
 
@@ -28,6 +29,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 app.use("/api/user", userRouter)
 app.use("/api/auth", authRouter)
+app.use("/api/listing",listRouter )
 
 
 
