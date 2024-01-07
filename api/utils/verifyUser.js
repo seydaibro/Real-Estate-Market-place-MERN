@@ -12,6 +12,7 @@ export const verifyToken = (req, res, next) => {
     if (err) return next(errHandler(403, 'Forbidden'));
 
     req.user = user;
+    console.log(user)
     next();
   });
 };

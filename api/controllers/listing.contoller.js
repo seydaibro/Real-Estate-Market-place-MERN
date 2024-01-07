@@ -4,7 +4,7 @@ import {Listing} from '../modle/listing.model.js'
 
 
 export const createListing = async (req, res, next) => {
-    console.log("Request Body:", req.body);
+  
     try {
         const newListing = await Listing.create(req.body);
         return res.status(200).json(newListing);

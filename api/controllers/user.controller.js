@@ -1,6 +1,7 @@
 import { errHandler } from "../utils/err.js"
 import bcryptjs from 'bcryptjs'
 import User from '../modle/user.model.js'
+import {Listing} from '../modle/listing.model.js'
 
 
 export const updateUserInfo = async (req, res, next)=>{
@@ -38,3 +39,16 @@ res.status(200).json('user has been deleeted!').clearCookie()
 }
 
 }
+
+export const getUserListing = async(req, res, next)=>{
+    if(req.user.id === req.params.id){
+        try{
+           const listings = await Listing.find({useerRef: req.params.id})
+           res.status(200).json(listings)
+        }catch(err){
+            next(err)
+        }
+    }else{
+        return(errHandler(401, 'you can only view your own listings'))
+    }
+} 
