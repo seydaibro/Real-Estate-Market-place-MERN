@@ -128,6 +128,27 @@ console.log(userListings)
    setShowListingsErr(true)
     }
   }
+
+  const handleListingDelete = async(listingId)=>{
+ try{
+ const res = await makeRequest.delete(`/listing/delete/${listingId}`)
+ if(res.sucess == false){
+  console.log(res.message)
+  return
+ }
+ setUserListings((prev) => prev.filter((listing) => listing._id !== listingId))
+ }catch(error){
+  console.log(error)
+ }
+  }
+
+  const handleListingEdit = async(listingId)=>{
+    try{
+   const res = await makeRequest.post(`/listing/edit/${listingId}`)
+    }catch(err){
+      console.log(err)
+    }
+  }
   return (
     <div  className='p-3  max-w-lg   mx-auto'>
       <h1 className="text-3xl font-semibold text-center">
@@ -205,7 +226,7 @@ console.log(userListings)
         <p className='text-red-700 text-sm'>{showListingsErr? 'Error show listings': ''}</p>
         {userListings && userListings.length > 0 && (
   <div  className='flex flex-col gap-4'>
-    <h1  className='text-center my-7  font-semibold'>Your Listing</h1>
+    <h1  className='text-center my-7 text-2xl font-semibold'>Your Listing</h1>
     {userListings.map((listing) => (
       <div 
         className="border rounded-lg p-3 gap-4 flex justify-between items-center border-slate-200"
@@ -224,8 +245,10 @@ console.log(userListings)
           </p>
         </Link>
         <div className="flex flex-col items-center gap-3">
-          <button className="text-red-700 uppercase ">Delete</button>
-          <button className="text-green-700 uppercase">Edit</button>
+          <button onClick={()=>handleListingDelete(listing._id)} className="text-red-700 uppercase ">Delete</button>
+          <Link to={`/update-listing/${listing._id}`}>
+          <button  onClick={() => handleListingEdit(listing._id)}className="text-green-700 uppercase">Edit</button>
+          </Link>
         </div>
       </div>
     ))}
