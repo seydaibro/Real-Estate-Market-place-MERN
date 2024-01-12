@@ -25,7 +25,7 @@ export const Contact = ({listing}) => {
   return (
     <>
     {landlord && (
-        <div>
+        <div className='flex gap-3 flex-col'>
            <p>Contact <span>{landlord.username  }</span>
            for{' '}
             <span className='font-semibold'>{listing.name.toLowerCase()}</span>
@@ -37,7 +37,7 @@ export const Contact = ({listing}) => {
             value={message}
             onChange={onChange}
             placeholder='Enter your message here...'
-            className='w-full border p-3 rounded-lg mb-5 sm:mb-7'
+            className='w-full border p-3 rounded-lg '
           ></textarea>
              <Link
           to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
