@@ -20,6 +20,7 @@ const navigate = useNavigate()
     e.preventDefault();
     
     
+    
     try {
       setLoading(true)
       const response = await makeRequest.post('/auth/register', formData);
