@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import {makeRequest} from '../axios'
+import { ListingCard } from '../components/ListingCard';
 
 export const Search = () => {
     const navigate = useNavigate();
@@ -110,6 +111,19 @@ export const Search = () => {
     console.log(searchQuery)
         navigate(`/search?${searchQuery}`);
     }
+    const onShowMoreClick = async () => {
+      const numberOfListings = listings.length;
+      const startIndex = numberOfListings;
+      const urlParams = new URLSearchParams(location.search);
+      urlParams.set('startIndex', startIndex);
+      const searchQuery = urlParams.toString();
+      const res = await makeRequest.get(`/listing/get?${searchQuery}`);
+      
+      if (res.data.length < 9) {
+        setShowMore(false);
+      }
+      setListings([...listings, ...res.data]);
+    };
     
   return (
     <div  className='flex flex-col md:flex-row'>
@@ -213,8 +227,33 @@ export const Search = () => {
           </button>
         </form>
       </div>
-      <div>
-        listing items
+      <div className='flex-1' >
+        <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>
+          Listing results
+        </h1>
+        <div className='p-7 flex gap-4 flex-wrap justify-evenly'>
+          {!loading && listings.length === 0 && (
+            <p 
+             className=' flex  text-xl text-slate-700' >No listing found!</p>
+          )} 
+          {loading && (
+            <p className=' w-full text-center text-xl text-slate-700'> Loading...</p>
+          )}{
+            !loading && listings?.map((listing) =>(
+          
+             <ListingCard  listing={listing} key={listing._id}/>
+            ))
+          }
+
+            {showMore && (
+            <button
+              onClick={onShowMoreClick}
+              className='text-green-700 hover:underline p-7 text-center w-full'
+            >
+              Show more
+            </button>
+          )}
+        </div>
       </div>
     </div>
   )
