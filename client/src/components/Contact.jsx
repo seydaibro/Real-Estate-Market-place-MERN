@@ -41,12 +41,14 @@ export const Contact = ({listing}) => {
           ></textarea>
              <Link
           to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
-          className=' w-full text-center bg-slate-700 text-white p-3 uppercase rounded-lg hover:opacity-95 leading-3'
+         
+          className= ' w-full text-center bg-slate-700 text-white p-3 uppercase rounded-lg hover:opacity-95 leading-3'
           >
             Send Message          
           </Link>
         </div>
     )}
+  
     </>
   )
 }

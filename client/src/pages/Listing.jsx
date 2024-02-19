@@ -63,7 +63,7 @@ console.log(listing)
                     {listing.imageUrls.map((url) => (
                       <SwiperSlide key={url}>
                         <div
-                          className='h-[350px]'
+                          className='h-[470px]'
                           style={{
                             background: `url(${url}) center no-repeat`,
                             backgroundSize: 'cover',
