@@ -10,7 +10,10 @@ import  cookieParser from 'cookie-parser'
 dotenv.config()
 const app = express()
 app.use(express.json())
-app.use(cors({origin: true, credentials:true}))
+app.use(cors({
+  origin: 'https://real-estate-market-place-mern.vercel.app',
+  credentials: true,
+}));
 app.use(cookieParser())
 
 mongoose.connect(process.env.MONGO_URL)
