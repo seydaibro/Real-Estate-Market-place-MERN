@@ -6,7 +6,6 @@ import authRouter from './routes/auth.route.js'
 import listRouter from './routes/listing.route.js'
 import cors from 'cors'
 import  cookieParser from 'cookie-parser'
-import path from 'path';
 
 dotenv.config()
 const app = express()
@@ -27,18 +26,13 @@ mongoose.connect(process.env.MONGO_URL)
  console.error("Connection error:", err)
  
 })
-const __dirname = path.resolve();
+
 
 
 app.use("/api/user", userRouter)
 app.use("/api/auth", authRouter)
 app.use("/api/listing",listRouter )
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-})
 
 
 app.use((err, req, res , next)=>{
