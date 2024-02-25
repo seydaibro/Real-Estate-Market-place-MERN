@@ -14,7 +14,7 @@ app.use(cookieParser());
 
 // Use cors middleware
 app.use(cors({
-  origin: 'https://real-estate-market-place-mern.vercel.app',
+  origin: true,
   credentials: true,
 }));
 
