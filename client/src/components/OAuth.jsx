@@ -1,6 +1,6 @@
 import {GoogleAuthProvider, getAuth, signInWithPopup} from 'firebase/auth'
 import {app} from '../firebase'
-import { makeRequest } from '../axios'
+import {  publicAxios } from '../axios'
 import { useDispatch } from 'react-redux'
 import { signInSuccess } from '../redux/user/UserSlice'
 import { useNavigate } from 'react-router-dom'
@@ -16,7 +16,7 @@ const handleGoogleClick = async() =>{
    const result = await signInWithPopup(auth, provider)
    console.log(result)
  
-   const res = await makeRequest.post('/auth/google',
+   const res = await publicAxios.post('/auth/google',
    {
     name: result.user.displayName,
     email: result.user.email,

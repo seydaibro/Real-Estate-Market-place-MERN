@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { makeRequest } from '../axios'
+import {  privateAxios } from '../axios'
 import { Link } from 'react-router-dom'
 
 export const Contact = ({listing}) => {
@@ -13,7 +13,7 @@ export const Contact = ({listing}) => {
     useEffect(()=>{
       const fetchLandlord = async() =>{
         try{
-         const res = await makeRequest.get(`user/${listing.useerRef}`)
+         const res = await privateAxios.get(`user/${listing.useerRef}`)
        
          setLandlord(res.data)
         }catch(err){

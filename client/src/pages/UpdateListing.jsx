@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import {app} from '../firebase'
 import {getDownloadURL, getStorage, ref,
        uploadBytesResumable} from 'firebase/storage'
-import { makeRequest } from '../axios'
+import { privateAxios } from '../axios'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams} from 'react-router-dom'
 
@@ -42,7 +42,7 @@ export const UpdateListing = () => {
     useEffect(()=>{
     const fetchListing = async()=>{
       const listingId = params.listingId
-      const res = await makeRequest.get(`/listing/get/${listingId}`)
+      const res = await privateAxios.get(`/listing/get/${listingId}`)
       if(res.success === false){
         console.log(res.message)
         return

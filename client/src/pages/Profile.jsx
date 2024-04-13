@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase';
-import { makeRequest } from '../axios';
+import {  privateAxios } from '../axios';
 import {
   updateUserStart,
   updateUserSuccess,
@@ -62,7 +62,7 @@ export const Profile = () => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const response = await makeRequest.post(`/user/update/${currentUser._id}`, formData);
+      const response = await privateAxios.post(`/user/update/${currentUser._id}`, formData);
       if (response.success === false) {
         console.log(response);
         dispatch(updateUserFailure(response.message));
@@ -79,7 +79,7 @@ export const Profile = () => {
     e.preventDefault();
     dispatch(deleteUserStart());
     try {
-      const response = await makeRequest.delete(`/user/delete/${currentUser._id}`, formData);
+      const response = await privateAxios.delete(`/user/delete/${currentUser._id}`, formData);
       if (response.success === false) {
         dispatch(deleteUserFailure(response.data.message));
         return;

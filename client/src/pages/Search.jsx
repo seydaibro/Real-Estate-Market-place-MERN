@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
-import {makeRequest} from '../axios'
+import {publicAxios, privateAxios} from '../axios'
 import { ListingCard } from '../components/ListingCard';
 
 export const Search = () => {
@@ -52,7 +52,7 @@ export const Search = () => {
         setLoading(true);
       setShowMore(false);
       const searchQuery = urlParams.toString();
-      const res = await makeRequest.get(`/listing/get?${searchQuery}`);
+      const res = await publicAxios.get(`/listing/get?${searchQuery}`);
      
       if (res.data.length > 8) {
         setShowMore(true);
@@ -117,7 +117,7 @@ export const Search = () => {
       const urlParams = new URLSearchParams(location.search);
       urlParams.set('startIndex', startIndex);
       const searchQuery = urlParams.toString();
-      const res = await makeRequest.get(`/listing/get?${searchQuery}`);
+      const res = await publicAxios.get(`/listing/get?${searchQuery}`);
       
       if (res.data.length < 9) {
         setShowMore(false);

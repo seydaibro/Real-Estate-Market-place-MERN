@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {app} from '../firebase'
 import {getDownloadURL, getStorage, ref,
        uploadBytesResumable} from 'firebase/storage'
-import { makeRequest } from '../axios'
+import { privateAxios } from '../axios'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -122,7 +122,7 @@ const hanldeSubmit = async(e) =>{
         if(formData.regularPrice < formData.discountPrice) return setError('Discount price must be less than regular price')
         setLoading(true)
         setError(false)
-        const res = await makeRequest.post('/listing/create', formData)
+        const res = await privateAxios.post('/listing/create', formData)
         setLoading(false)
         navigate(`/listings/${res.data._id}`)
         if(res.success === false){

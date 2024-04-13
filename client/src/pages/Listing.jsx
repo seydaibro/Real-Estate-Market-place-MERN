@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
-import { makeRequest } from '../axios';
+import { publicAxios } from '../axios';
 import { useSelector } from 'react-redux';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
@@ -31,7 +31,7 @@ console.log(listing)
         const fetchListing = async ()=>{
             try{
                 setLoading(true)
-                const res = await makeRequest.get(`listing/get/${params.listingId}`)
+                const res = await publicAxios.get(`listing/get/${params.listingId}`)
                
                 if(res.success === false){
                     setErr(true)

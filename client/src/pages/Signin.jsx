@@ -1,7 +1,7 @@
 
 import {useState , useRef, useEffect}from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {makeRequest}  from '../../src/axios'
+import { publicAxios}  from '../../src/axios'
 import {
    signInStart,
    signInSuccess, 
@@ -34,7 +34,7 @@ const {loading, error} = useSelector((state) =>state.user)
     try {
       dispatch(signInStart());
   
-      const response = await makeRequest.post('/auth/signin', formData);
+      const response = await publicAxios.post('/auth/signin', formData);
       if (response.success === false) {
         dispatch(signInFailure(response.message));
         return;

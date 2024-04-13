@@ -5,7 +5,7 @@ import { Navigation } from 'swiper/modules';
 import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import { ListingCard } from '../components/ListingCard';
-import { makeRequest } from '../axios';
+import {  publicAxios } from '../axios';
 import { PuffLoader } from "react-spinners";
 
 
@@ -19,7 +19,7 @@ export  function Home() {
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
-        const res = await makeRequest.get('/listing/get?offer=true&limit=4');
+        const res = await publicAxios.get('/listing/get?offer=true&limit=4');
        
         setOfferListings(res.data);
         fetchRentListings();
@@ -31,7 +31,7 @@ export  function Home() {
     };
     const fetchRentListings = async () => {
       try {
-        const res = await makeRequest.get('listing/get?type=rent&limit=4');
+        const res = await publicAxios.get('listing/get?type=rent&limit=4');
        
         setRentListings(res.data);
         fetchSaleListings();
@@ -44,7 +44,7 @@ export  function Home() {
 
     const fetchSaleListings = async () => {
       try {
-        const res = await makeRequest.get('/listing/get?type=sale&limit=4');
+        const res = await publicAxios.get('/listing/get?type=sale&limit=4');
         setSaleListings(res.data);
         setLoading(false)
       } catch (error) {

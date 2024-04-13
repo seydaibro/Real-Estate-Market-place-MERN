@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Dropdown } from './Dropdown';
 import { IoReorderThreeSharp } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
-import { makeRequest } from '../axios';
+import {  privateAxios } from '../axios';
  
 import { 
   logOutUserStart,
@@ -45,7 +45,7 @@ export const Header = () => {
     e.preventDefault()
      try{
      dispatch(logOutUserStart())
-     const res = await makeRequest.get('/auth/signout')
+     const res = await privateAxios.get('/auth/signout')
       if(res.sucess === false){
       dispatch(logOutUserFailure(res.data.message))
       console.log(res)

@@ -5,7 +5,7 @@ import {
    logOutUserFailure,
   } from '../redux/user/UserSlice'
    import { useDispatch, useSelector } from 'react-redux';
-   import {makeRequest} from '../axios'
+   import { privateAxios} from '../axios'
    import { Link } from 'react-router-dom';
 
 export const Dropdown = () => {
@@ -16,7 +16,7 @@ export const Dropdown = () => {
     e.preventDefault()
      try{
      dispatch(logOutUserStart())
-     const res = await makeRequest.get('/auth/signout')
+     const res = await privateAxios.get('/auth/signout')
       if(res.sucess === false){
       dispatch(logOutUserFailure(res.data.message))
       console.log(res)

@@ -1,6 +1,6 @@
 import {useState}from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {makeRequest}  from '../../src/axios'
+import { publicAxios}  from '../../src/axios'
 import  OAuth  from '../components/OAuth';
 
 export const SignUp = () => {
@@ -23,7 +23,7 @@ const navigate = useNavigate()
     
     try {
       setLoading(true)
-      const response = await makeRequest.post('/auth/register', formData);
+      const response = await publicAxios.post('/auth/register', formData);
       console.log('Response:', response);
       setLoading(false)
       setErorr(null)

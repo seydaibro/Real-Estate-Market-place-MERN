@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
-import { makeRequest } from "../axios";
+import {  privateAxios } from "../axios";
 import { Link } from 'react-router-dom';
 import { MdLocationOn } from 'react-icons/md';
 import {
@@ -25,7 +25,7 @@ export const MyListing = () => {
     const handleShowListings = async () => {
       try {
         setShowListingsErr(false);
-        const res = await makeRequest.get(`user/listings/${currentUser._id}`);
+        const res = await privateAxios.get(`user/listings/${currentUser._id}`);
         console.log(res);
         if (res.success === false) {
           setShowListingsErr(true);
@@ -40,7 +40,7 @@ export const MyListing = () => {
 
   const handleListingDelete = async (listingId) => {
     try {
-      const res = await makeRequest.delete(`/listing/delete/${listingId}`);
+      const res = await privateAxios.delete(`/listing/delete/${listingId}`);
       if (res.success === false) {
         console.log(res.message);
         return;
