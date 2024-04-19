@@ -20,12 +20,17 @@ export const MyListing = () => {
   const [showListingsErr, setShowListingsErr] = useState(null);
   const [userListings, setUserListings] = useState([]);
   const { currentUser } = useSelector(state => state.user);
+  console.log("currentUser", currentUser?.user._id)
 
   useEffect(() => {
     const handleShowListings = async () => {
       try {
         setShowListingsErr(false);
-        const res = await privateAxios.get(`user/listings/${currentUser._id}`);
+        const res = await privateAxios.get(`/user/listings/${currentUser?.user._id}`, {
+          headers: {
+            Authorization: `${currentUser.token}`,
+          },
+        });
         console.log(res);
         if (res.success === false) {
           setShowListingsErr(true);
@@ -40,7 +45,11 @@ export const MyListing = () => {
 
   const handleListingDelete = async (listingId) => {
     try {
-      const res = await privateAxios.delete(`/listing/delete/${listingId}`);
+      const res = await privateAxios.delete(`/listing/delete/${listingId}`,{
+        headers: {
+          Authorization: `${currentUser.token}`,
+        },
+      });
       if (res.success === false) {
         console.log(res.message);
         return;
@@ -53,7 +62,11 @@ export const MyListing = () => {
 
   const handleListingEdit = async (listingId) => {
     try {
-      const res = await makeRequest.post(`/listing/edit/${listingId}`);
+      const res = await privateAxios.post(`/listing/edit/${listingId}`,{
+        headers: {
+          Authorization: `${currentUser.token}`,
+        },
+      });
     } catch (err) {
       console.log(err);
     }

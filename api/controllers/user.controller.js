@@ -41,16 +41,14 @@ res.status(200).json('user has been deleeted!').clearCookie()
 }
 
 export const getUserListing = async(req, res, next)=>{
-    if(req.user.id === req.params.id){
+  
         try{
            const listings = await Listing.find({useerRef: req.params.id})
            res.status(200).json(listings)
         }catch(err){
             next(err)
         }
-    }else{
-        return(errHandler(401, 'you can only view your own listings'))
-    }
+    
 } 
 
 export const  getUser = async (req, res, next)=>{

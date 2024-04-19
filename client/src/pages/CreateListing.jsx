@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const CreateListing = () => {
     const navigate = useNavigate()
-    const {currentUser} = useSelector(state => state.user)
+    const {currentUser, token} = useSelector(state => state.user)
     const [files, setFiles] = useState([])
     const [formData, setFormData] = useState({
        imageUrls:[], 
@@ -27,7 +27,7 @@ export const CreateListing = () => {
        offer:false,
        parking: false,
        furnished: false,
-       useerRef:currentUser._id
+       useerRef:currentUser.user._id
 
     })
     const [imageUploadError, setImageUploadError] = useState(null)
@@ -122,7 +122,13 @@ const hanldeSubmit = async(e) =>{
         if(formData.regularPrice < formData.discountPrice) return setError('Discount price must be less than regular price')
         setLoading(true)
         setError(false)
-        const res = await privateAxios.post('/listing/create', formData)
+        const res = await privateAxios.post('/listing/create', formData, {
+            headers: {
+              Authorization: ` ${currentUser.token}`,
+            //   'Content-Type': 'multipart/form-data', // Assuming you are sending formData
+            },
+          });
+        console.log('FormData', formData)
         setLoading(false)
         navigate(`/listings/${res.data._id}`)
         if(res.success === false){
@@ -130,6 +136,7 @@ const hanldeSubmit = async(e) =>{
         }
 
     }catch(error){
+        console.log(error)
 setError(error.message)
 setLoading(false)
     }

@@ -137,7 +137,12 @@ const hanldeSubmit = async(e) =>{
         if(formData.regularPrice < formData.discountPrice) return setError('Discount price must be less than regular price')
         setLoading(true)
         setError(false)
-        const res = await makeRequest.post('/listing/edit/'+params.listingId, formData)
+        const res = await privateAxios.post('/listing/edit/'+params.listingId, formData,{
+            headers: {
+                Authorization: ` ${currentUser.token}`,
+              //   'Content-Type': 'multipart/form-data', // Assuming you are sending formData
+              },
+        })
         setLoading(false)
         navigate(`/listings/${res.data._id}`)
         if(res.success === false){

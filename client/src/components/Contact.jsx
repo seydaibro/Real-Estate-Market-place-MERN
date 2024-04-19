@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react'
 import {  privateAxios } from '../axios'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export const Contact = ({listing}) => {
     console.log(listing.useerRef)
+    const { currentUser } = useSelector(state => state.user);
     const [landlord, setLandlord] = useState(null)
     const [message, setMessage] = useState('');
     const onChange = (e) => {
@@ -13,7 +15,12 @@ export const Contact = ({listing}) => {
     useEffect(()=>{
       const fetchLandlord = async() =>{
         try{
-         const res = await privateAxios.get(`user/${listing.useerRef}`)
+         const res = await privateAxios.get(`user/${listing.useerRef}`,{
+          headers: {
+            Authorization: ` ${currentUser.token}`,
+          //   'Content-Type': 'multipart/form-data', // Assuming you are sending formData
+          },
+         })
        
          setLandlord(res.data)
         }catch(err){

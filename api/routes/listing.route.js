@@ -3,10 +3,10 @@ import { createListing,deleteListing,editListing,getListing, getListings } from 
 import { verifyToken } from '../utils/verifyUser.js'
 const router = express.Router()
 
-router.post('/create', createListing)
-router.delete('/delete/:id',  deleteListing)
-router.post('/edit/:id',  editListing)
-router.get('/get/:id', getListing)
+router.post('/create', verifyToken , createListing)
+router.delete('/delete/:id' , verifyToken,  deleteListing)
+router.post('/edit/:id',verifyToken,  editListing)
+router.get('/get/:id',  getListing)
 router.get('/get', getListings)
 
 
