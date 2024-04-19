@@ -17,7 +17,7 @@ export const Search = () => {
     const [loading, setLoading] = useState(false);
     const [listings, setListings] = useState([]);
      const [showMore, setShowMore] = useState(false);
-   console.log(listings)
+  //  console.log(listings)
     useEffect(() => {
       const urlParams = new URLSearchParams(location.search);
       const searchTermFromUrl = urlParams.get('searchTerm');
@@ -108,7 +108,7 @@ export const Search = () => {
         urlParams.set('sort', sidebardata.sort);
         urlParams.set('order', sidebardata.order);
           const searchQuery = urlParams.toString();
-    console.log(searchQuery)
+    // console.log(searchQuery)
         navigate(`/search?${searchQuery}`);
     }
     const onShowMoreClick = async () => {

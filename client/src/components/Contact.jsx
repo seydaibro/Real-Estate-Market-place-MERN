@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 export const Contact = ({listing}) => {
-    console.log(listing.useerRef)
+    // console.log(listing.useerRef)
     const { currentUser } = useSelector(state => state.user);
     const [landlord, setLandlord] = useState(null)
     const [message, setMessage] = useState('');
@@ -24,7 +24,7 @@ export const Contact = ({listing}) => {
        
          setLandlord(res.data)
         }catch(err){
-          console.log(err)
+          // console.log(err)
         }
       }
       fetchLandlord()

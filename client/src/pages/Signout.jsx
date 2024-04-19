@@ -15,7 +15,7 @@ const navigate = useNavigate()
     [e.target.id]: e.target.value
   })
   }
-  console.log(formData)
+  // console.log(formData)
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -24,12 +24,12 @@ const navigate = useNavigate()
     try {
       setLoading(true)
       const response = await publicAxios.post('/auth/register', formData);
-      console.log('Response:', response);
+      // console.log('Response:', response);
       setLoading(false)
       setErorr(null)
       navigate('/sign-in')
     } catch (error) {
-      console.error('Error:', error);
+      // console.error('Error:', error);
       setErorr(error.response.data.message)
       setLoading(false)
     }

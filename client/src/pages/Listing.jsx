@@ -26,7 +26,7 @@ const [copied, setCopied] = useState(false);
 const [err, setErr]  = useState(false)
 const [contact, setContact] = useState(false)
 const { currentUser } = useSelector((state) => state.user);
-console.log(listing)
+// console.log(listing)
     useEffect(()=>{
         const fetchListing = async ()=>{
             try{

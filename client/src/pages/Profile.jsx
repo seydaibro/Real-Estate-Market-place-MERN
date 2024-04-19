@@ -40,7 +40,7 @@ export const Profile = () => {
       'state_changed',
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
+        // console.log('Upload is ' + progress + '% done');
         setFilePerc(Math.round(progress));
       },
       (error) => {
@@ -64,14 +64,14 @@ export const Profile = () => {
       dispatch(updateUserStart());
       const response = await privateAxios.post(`/user/update/${currentUser._id}`, formData);
       if (response.success === false) {
-        console.log(response);
+        // console.log(response);
         dispatch(updateUserFailure(response.message));
         return;
       }
       dispatch(updateUserSuccess(response.data));
     } catch (error) {
       dispatch(updateUserFailure(error.response.data.message));
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -85,7 +85,7 @@ export const Profile = () => {
         return;
       }
       dispatch(deleteUserSuccess(response.data));
-      console.log(response);
+      // console.log(response);
     } catch (err) {
       dispatch(deleteUserFailure(err.response.data.message));
     }

@@ -35,8 +35,8 @@ export const UpdateListing = () => {
  const [uploading, setUploading] = useState(false)
  const [error, setError] = useState(false)
  const [loading, setLoading] = useState(false)
-    console.log(files)
-    console.log(formData)
+    // console.log(files)
+    // console.log(formData)
 
 
     useEffect(()=>{
@@ -44,7 +44,7 @@ export const UpdateListing = () => {
       const listingId = params.listingId
       const res = await privateAxios.get(`/listing/get/${listingId}`)
       if(res.success === false){
-        console.log(res.message)
+        // console.log(res.message)
         return
       }
       setFormData(res.data)
@@ -98,7 +98,7 @@ const storeImage = async (file) => {
         const downloadURL = await getDownloadURL(snapshot.ref);
         return downloadURL;
     } catch (error) {
-        console.error("Error storing image:", error);
+        // console.error("Error storing image:", error);
         throw error; // Re-throw the error to be caught by the Promise.reject in Promise.all
     }
 };

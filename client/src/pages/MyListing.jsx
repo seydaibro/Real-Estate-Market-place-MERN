@@ -20,7 +20,7 @@ export const MyListing = () => {
   const [showListingsErr, setShowListingsErr] = useState(null);
   const [userListings, setUserListings] = useState([]);
   const { currentUser } = useSelector(state => state.user);
-  console.log("currentUser", currentUser?.user._id)
+  // console.log("currentUser", currentUser?.user._id)
 
   useEffect(() => {
     const handleShowListings = async () => {
@@ -31,7 +31,7 @@ export const MyListing = () => {
             Authorization: `${currentUser.token}`,
           },
         });
-        console.log(res);
+       
         if (res.success === false) {
           setShowListingsErr(true);
         }
@@ -51,12 +51,12 @@ export const MyListing = () => {
         },
       });
       if (res.success === false) {
-        console.log(res.message);
+        // console.log(res.message);
         return;
       }
       setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -68,7 +68,7 @@ export const MyListing = () => {
         },
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

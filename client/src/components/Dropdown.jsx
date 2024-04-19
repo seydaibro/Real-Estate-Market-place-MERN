@@ -19,12 +19,12 @@ export const Dropdown = () => {
      const res = await privateAxios.get('/auth/signout')
       if(res.sucess === false){
       dispatch(logOutUserFailure(res.data.message))
-      console.log(res)
+      // console.log(res)
       return
       }
       dispatch(logOutUserSuccess())
      }catch(err){
-      console.log(err)
+      // console.log(err)
       dispatch(logOutUserFailure(err.response.data.message))
       }
       

@@ -14,7 +14,7 @@ const handleGoogleClick = async() =>{
    const provider = new GoogleAuthProvider()
    const auth = getAuth(app)
    const result = await signInWithPopup(auth, provider)
-   console.log(result)
+//    console.log(result)
  
    const res = await publicAxios.post('/auth/google',
    {
@@ -25,7 +25,7 @@ const handleGoogleClick = async() =>{
 dispatch(signInSuccess(res.data))
 navigate('/')
     }catch(err){
-        console.log(err)
+        // console.log(err)
     }
 }
 return(

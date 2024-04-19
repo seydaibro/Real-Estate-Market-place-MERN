@@ -34,8 +34,8 @@ export const CreateListing = () => {
  const [uploading, setUploading] = useState(false)
  const [error, setError] = useState(false)
  const [loading, setLoading] = useState(false)
-    console.log(files)
-    console.log(formData)
+    // console.log(files)
+    // console.log(formData)
 
 
     const handleImageSubmit = (e) => {
@@ -83,7 +83,7 @@ const storeImage = async (file) => {
         const downloadURL = await getDownloadURL(snapshot.ref);
         return downloadURL;
     } catch (error) {
-        console.error("Error storing image:", error);
+        // console.error("Error storing image:", error);
         throw error; // Re-throw the error to be caught by the Promise.reject in Promise.all
     }
 };
@@ -128,7 +128,7 @@ const hanldeSubmit = async(e) =>{
             //   'Content-Type': 'multipart/form-data', // Assuming you are sending formData
             },
           });
-        console.log('FormData', formData)
+        // console.log('FormData', formData)
         setLoading(false)
         navigate(`/listings/${res.data._id}`)
         if(res.success === false){
@@ -136,7 +136,7 @@ const hanldeSubmit = async(e) =>{
         }
 
     }catch(error){
-        console.log(error)
+        // console.log(error)
 setError(error.message)
 setLoading(false)
     }
