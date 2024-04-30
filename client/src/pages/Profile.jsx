@@ -62,7 +62,11 @@ export const Profile = () => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const response = await privateAxios.post(`/user/update/${currentUser._id}`, formData);
+      const response = await privateAxios.post(`/user/update/${currentUser?.user._id}`, formData,{
+        headers: {
+          Authorization: `${currentUser.token}`,
+        },
+      });
       if (response.success === false) {
         // console.log(response);
         dispatch(updateUserFailure(response.message));
