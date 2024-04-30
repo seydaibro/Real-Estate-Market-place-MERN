@@ -2,10 +2,9 @@ import jwt from 'jsonwebtoken';
 import User from '../modle/user.model.js' // Replace with the appropriate User model import
 
 export const verifyToken = async (req, res, next) => {
-  // console.log("header", req.headers)
+  
   const token = req.headers.authorization;
-//   console.log("token",token)
-// console.log("veryfiytokencalled")
+
   
   if (!token) {
     console.log("nottoken")

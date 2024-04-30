@@ -41,27 +41,24 @@ export const Header = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-  const handleSignOut = async(e) =>{
-    e.preventDefault()
-     try{
-     dispatch(logOutUserStart())
-     const res = await privateAxios.get('/auth/signout', {
-      headers: {
-        Authorization: `${currentUser.token}`,
+  const handleSignOut = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(logOutUserStart());
+      const res = await privateAxios.get('/auth/signout');
+      if (res.success === false) {
+        dispatch(logOutUserFailure(res.data.message));
+        return;
       }
-      },)
-      if(res.sucess === false){
-      dispatch(logOutUserFailure(res.data.message))
-      // console.log(res)
-      return
-      }
-      dispatch(logOutUserSuccess())
-     }catch(err){
-      // console.log(err)
-      dispatch(logOutUserFailure(err.response.data.message))
-      }   
-    toggleSidebar()
-  }
+      // Clear token from client-side storage
+      localStorage.removeItem('token');
+      dispatch(logOutUserSuccess());
+    } catch (err) {
+      dispatch(logOutUserFailure(err.response.data.message));
+    }
+    toggleSidebar();
+  };
+  
   return (
     <header className="bg-slate-200 shadow-md sticky top-0 z-50 ">
         <div className="flex justify-between items-center align-middle max-w-6xl mx-auto p-3  ">
@@ -121,38 +118,33 @@ export const Header = () => {
                 <button className=' text-xl sm:text-2xl' onClick={toggleSidebar}>{isOpen ? <IoMdClose/> : <IoReorderThreeSharp/> }</button>
               </div> 
               {
-                isOpen && (
-                  <ul className='fixed top-[72px] w-[50vw] right-0  bg-slate-300 scale-up-center  h-screen p-5 flex flex-col gap-3  '>
-                      <Link to='/'>
-                   <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>Home</li>  
-                   </Link>
-                   <Link to='/about'>
-                   <li  onClick={toggleSidebar} className=' sm:inline text-slate-900 hover:underline'>About</li>
-                   </Link>
-                   <Link to='/create-listing'>
-                   <li  onClick={toggleSidebar} className=' sm:inline text-slate-900 hover:underline'>Create Listing</li>
-                   </Link>
-                   <hr />
-                   <Link to={`/profile`}>
-                   <li  onClick={toggleSidebar} className=' sm:inline text-slate-900 hover:underline'>Profile</li>
-                   </Link>
-                   <Link to={`/mylisting`}>
-                   <li  onClick={toggleSidebar} className=' sm:inline text-slate-900 hover:underline'>My Listing</li>
-                   </Link>
-                   <Link >
-                   <li  onClick={handleSignOut}  className=' sm:inline text-slate-900 hover:underline'>Logout</li>
-                  </Link>
+  isOpen && (
+    <ul className='fixed top-[72px] w-[50vw] right-0 bg-slate-300 scale-up-center h-screen p-5 flex flex-col gap-3'>
+      <Link to='/'>
+        <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>Home</li>
+      </Link>
+      <Link to='/about'>
+        <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>About</li>
+      </Link>
+      <Link to='/create-listing'>
+        <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>Create Listing</li>
+      </Link>
+      <hr />
+      {currentUser.token && (
+        <>
+          <Link to={`/profile`}>
+            <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>Profile</li>
+          </Link>
+          <Link to={`/mylisting`}>
+            <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>My Listings</li>
+          </Link>
+          <li onClick={handleSignOut} className='sm:inline text-slate-900 hover:underline'>Logout</li>
+        </>
+      )}
+    </ul>
+  )
+}
 
-
-
-                  
-              
-                      
-
-              
-                  </ul>
-                )
-              }
              </div>
            </div>
     </header>
