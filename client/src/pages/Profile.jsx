@@ -79,7 +79,11 @@ export const Profile = () => {
     e.preventDefault();
     dispatch(deleteUserStart());
     try {
-      const response = await privateAxios.delete(`/user/delete/${currentUser._id}`, formData);
+      const response = await privateAxios.delete(`/user/delete/${currentUser.user._id}`, formData, {
+        headers: {
+          Authorization: `${currentUser.token}`,
+        },
+      });
       if (response.success === false) {
         dispatch(deleteUserFailure(response.data.message));
         return;
