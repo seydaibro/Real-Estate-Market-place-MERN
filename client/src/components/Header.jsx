@@ -45,7 +45,11 @@ export const Header = () => {
     e.preventDefault()
      try{
      dispatch(logOutUserStart())
-     const res = await privateAxios.get('/auth/signout')
+     const res = await privateAxios.get('/auth/signout', {
+      headers: {
+        Authorization: `${currentUser.token}`,
+      }
+      },)
       if(res.sucess === false){
       dispatch(logOutUserFailure(res.data.message))
       // console.log(res)

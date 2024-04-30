@@ -78,8 +78,10 @@ export const google = async(req, res, next)=>{
 
 export const signout = (req, res, next)=>{
  try{
-  res.clearCookie('access_token');
-  res.status(200).json("user has been logged out")
+  console.log("sign out called")
+  const token = req.headers.authorization;
+  console.log(token)
+  // res.status(200).json("user has been logged out")
  }catch(err){
   next(err)
  }
