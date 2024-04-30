@@ -130,7 +130,7 @@ export const Header = () => {
         <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>Create Listing</li>
       </Link>
       <hr />
-      {currentUser.token && (
+      {currentUser && (
         <>
           <Link to={`/profile`}>
             <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>Profile</li>
