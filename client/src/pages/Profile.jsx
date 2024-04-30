@@ -21,7 +21,7 @@ export const Profile = () => {
   const [userListings, setUserListings] = useState([]);
   const [file, setFile] = useState(undefined);
   const [fileUploadErr, setFileUploadErr] = useState(false);
-  const { currentUser } = useSelector(state => state.user);
+  const { currentUser, loading, error } = useSelector(state => state.user);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
 
