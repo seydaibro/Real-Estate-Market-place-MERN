@@ -11,8 +11,8 @@
 //   });
 
   import axios from "axios";
-   const baseURL = "http://localhost:3000/";
-  //  const baseURL  = "https://seyda-estate.onrender.com/api/"
+  //  const baseURL = "http://localhost:3000";
+   const baseURL  = "https://seyda-estate.onrender.com/api/"
 
 export const privateAxios = axios.create({
   baseURL: baseURL,
