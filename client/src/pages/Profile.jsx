@@ -76,7 +76,7 @@ console.log(currentUser?.user._id)
       dispatch(updateUserSuccess(response.data));
       console.log(response.data)
     } catch (error) {
-      //  dispatch(updateUserFailure(error.response.data.message));
+        dispatch(updateUserFailure(error.response.data.message));
        console.log(error);
     }
   };
