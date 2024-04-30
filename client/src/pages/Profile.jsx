@@ -84,7 +84,7 @@ console.log(currentUser?.user._id)
     e.preventDefault();
     dispatch(deleteUserStart());
     try {
-      const response = await privateAxios.delete(`/user/delete/${currentUser.user._id}`, formData, {
+      const response = await privateAxios.delete(`/user/delete/${currentUser?.user._id}`, formData, {
         headers: {
           Authorization: `${currentUser.token}`,
         },
