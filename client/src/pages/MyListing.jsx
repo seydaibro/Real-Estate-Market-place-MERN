@@ -26,7 +26,7 @@ export const MyListing = () => {
     const handleShowListings = async () => {
       try {
         setShowListingsErr(false);
-        const res = await privateAxios.get(`/user/listings/${currentUser?._id}`, {
+        const res = await privateAxios.get(`/user/listings/${currentUser?.user._id}`, {
           headers: {
             Authorization: `${currentUser.token}`,
           },
