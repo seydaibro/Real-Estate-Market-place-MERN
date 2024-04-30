@@ -30,7 +30,7 @@ export const Profile = () => {
       handleFileUpload(file);
     }
   }, [file]);
-  console.log("currentuserTokenProfule",currentUser.token)
+  console.log("currentuserToken",currentUser.token)
   console.log("currentuserFromProfile", currentUser)
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
@@ -63,46 +63,44 @@ console.log(currentUser?.user._id)
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      if (currentUser && currentUser.user && currentUser.user._id) {
-        const response = await privateAxios.post(`/user/update/${currentUser.user._id}`, formData, {
-          headers: {
-            Authorization: `${currentUser.token}`,
-          },
-        });
-        if (response.success === false) {
-          dispatch(updateUserFailure(response.message));
-          return;
-        }
-        dispatch(updateUserSuccess(response.data));
-        console.log(response.data);
+      const response = await privateAxios.post(`/user/update/${currentUser?.user._id}`, formData,{
+        headers: {
+          Authorization: `${currentUser.token}`,
+        },
+      });
+      if (response.success === false) {
+        // console.log(response);
+        dispatch(updateUserFailure(response.message));
+        return;
       }
+      dispatch(updateUserSuccess(response.data));
+      console.log(response.data)
     } catch (error) {
-      // dispatch(updateUserFailure(error.response.data.message))
-      console.log(error);
+      //  dispatch(updateUserFailure(error.response.data.message));
+       console.log(error);
     }
   };
-  
+
   const handleDeleteUser = async (e) => {
     e.preventDefault();
     dispatch(deleteUserStart());
-    if (currentUser && currentUser.user && currentUser.user._id) {
-      try {
-        const response = await privateAxios.delete(`/user/delete/${currentUser.user._id}`, formData, {
-          headers: {
-            Authorization: `${currentUser.token}`,
-          },
-        });
-        if (response.success === false) {
-          dispatch(deleteUserFailure(response.data.message));
-          return;
-        }
-        dispatch(deleteUserSuccess(response.data));
-        // console.log(response);
-      } catch (err) {
-        dispatch(deleteUserFailure(err.response.data.message));
+    try {
+      const response = await privateAxios.delete(`/user/delete/${currentUser?.user._id}`, formData, {
+        headers: {
+          Authorization: `${currentUser.token}`,
+        },
+      });
+      if (response.success === false) {
+        dispatch(deleteUserFailure(response.data.message));
+        return;
       }
+      dispatch(deleteUserSuccess(response.data));
+      // console.log(response);
+    } catch (err) {
+      dispatch(deleteUserFailure(err.response.data.message));
     }
   };
+
   return (
     <div className='p-10 max-w-lg mx-auto'>
       <h1 className="text-3xl font-semibold text-center"></h1>
