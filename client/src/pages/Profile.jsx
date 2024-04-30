@@ -31,6 +31,7 @@ export const Profile = () => {
     }
   }, [file]);
   console.log("currentuserToken",currentUser.token)
+  console.log("currentuserFromProfile", currentUser)
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
@@ -62,7 +63,7 @@ console.log(currentUser?.user._id)
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const response = await privateAxios.post(`/user/update/${currentUser?._id}`, formData,{
+      const response = await privateAxios.post(`/user/update/${currentUser?.user._id}`, formData,{
         headers: {
           Authorization: `${currentUser.token}`,
         },

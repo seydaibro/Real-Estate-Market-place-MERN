@@ -28,7 +28,7 @@ export const Dropdown = () => {
   console.log("currentuserfromdero", currentUser)
 
   return (
-    currentUser && (
+    currentUser.user._id && (
       <div className=" inline-block text-left">
         <div className="hidden group-hover:block hover:block origin-top-right absolute right-2 top-7 w-32 rounded-md shadow-md bg-slate-100 ring-1 ring-black ring-opacity-5">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
