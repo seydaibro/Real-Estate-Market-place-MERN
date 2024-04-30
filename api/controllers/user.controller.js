@@ -5,7 +5,7 @@ import {Listing} from '../modle/listing.model.js'
 
 
 export const updateUserInfo = async (req, res, next)=>{
-   if(req.user.id !== req.params.id ) return next(errHandler(401, 'You can only uppdate your account'))
+   
 
    try{
     if(req.body.password){
