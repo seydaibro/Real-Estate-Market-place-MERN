@@ -43,7 +43,7 @@ export const MyListing = () => {
     handleShowListings();
   }, [currentUser._id]);
 
-  console.log(currentUser.token)
+  console.log("currentuserToken",currentUser.token)
 
   const handleListingDelete = async (listingId) => {
     try {
