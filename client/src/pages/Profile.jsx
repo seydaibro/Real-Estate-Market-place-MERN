@@ -30,7 +30,7 @@ export const Profile = () => {
       handleFileUpload(file);
     }
   }, [file]);
-
+  console.log("currentuserToken",currentUser.token)
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
@@ -62,7 +62,7 @@ console.log(currentUser?.user._id)
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const response = await privateAxios.post(`/user/update/${currentUser?.user._id}`, formData,{
+      const response = await privateAxios.post(`/user/update/${currentUser?._id}`, formData,{
         headers: {
           Authorization: `${currentUser.token}`,
         },
@@ -113,7 +113,7 @@ console.log(currentUser?.user._id)
         />
         <img
           onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser.avatar}
+          src={formData.avatar || currentUser.user.avatar}
           alt="Profile"
           className='rounded-full h-24 w-24 object-cover cursor-default self-center mt-2'
         />
@@ -134,7 +134,7 @@ console.log(currentUser?.user._id)
           type="text"
           id='username'
           placeholder='username'
-          defaultValue={currentUser.username}
+          defaultValue={currentUser.user.username}
           className='border p-3 rounded-lg focus: outline-none'
           onChange={handleChange}
         />
@@ -142,7 +142,7 @@ console.log(currentUser?.user._id)
           type="email"
           id='email'
           placeholder='email'
-          defaultValue={currentUser.email}
+          defaultValue={currentUser.user.email}
           className='border p-3 rounded-lg focus: outline-none'
           onChange={handleChange}
         />

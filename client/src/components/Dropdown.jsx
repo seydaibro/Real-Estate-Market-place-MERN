@@ -25,6 +25,7 @@ export const Dropdown = () => {
       dispatch(logOutUserFailure(err.response.data.message));
     }
   };
+  console.log("currentuserfromdero", currentUser)
 
   return (
     currentUser && (
