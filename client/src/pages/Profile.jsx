@@ -53,7 +53,7 @@ export const Profile = () => {
       }
     );
   };
-
+console.log(currentUser?.user._id)
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -73,9 +73,10 @@ export const Profile = () => {
         return;
       }
       dispatch(updateUserSuccess(response.data));
+      console.log(response.data)
     } catch (error) {
-      dispatch(updateUserFailure(error.response.data.message));
-      // console.log(error);
+      //  dispatch(updateUserFailure(error.response.data.message));
+       console.log(error);
     }
   };
 

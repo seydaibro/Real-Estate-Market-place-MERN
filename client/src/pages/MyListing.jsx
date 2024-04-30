@@ -20,7 +20,7 @@ export const MyListing = () => {
   const [showListingsErr, setShowListingsErr] = useState(null);
   const [userListings, setUserListings] = useState([]);
   const { currentUser } = useSelector(state => state.user);
-  // console.log("currentUser", currentUser?.user._id)
+   console.log("currentUser", currentUser?.user._id)
 
   useEffect(() => {
     const handleShowListings = async () => {
