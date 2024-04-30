@@ -129,9 +129,11 @@ export const Header = () => {
       <Link to='/create-listing'>
         <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>Create Listing</li>
       </Link>
-      <hr />
+      
       {currentUser && (
+        
         <>
+        <hr />
           <Link to={`/profile`}>
             <li onClick={toggleSidebar} className='sm:inline text-slate-900 hover:underline'>Profile</li>
           </Link>
