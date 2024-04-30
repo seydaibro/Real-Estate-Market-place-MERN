@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase';
-import { privateAxios } from '../axios';
+import {  privateAxios } from '../axios';
 import {
   updateUserStart,
   updateUserSuccess,
@@ -10,6 +10,7 @@ import {
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
+  
 } from '../redux/user/UserSlice';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +21,7 @@ export const Profile = () => {
   const [userListings, setUserListings] = useState([]);
   const [file, setFile] = useState(undefined);
   const [fileUploadErr, setFileUploadErr] = useState(false);
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector(state => state.user);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
 
@@ -29,7 +30,8 @@ export const Profile = () => {
       handleFileUpload(file);
     }
   }, [file]);
-
+  console.log("currentuserTokenProfule",currentUser.token)
+  console.log("currentuserFromProfile", currentUser)
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
@@ -39,6 +41,7 @@ export const Profile = () => {
       'state_changed',
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // console.log('Upload is ' + progress + '% done');
         setFilePerc(Math.round(progress));
       },
       (error) => {
@@ -51,7 +54,7 @@ export const Profile = () => {
       }
     );
   };
-
+console.log(currentUser?.user._id)
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -61,66 +64,60 @@ export const Profile = () => {
     try {
       dispatch(updateUserStart());
       if (currentUser && currentUser.user && currentUser.user._id) {
-        const response = await privateAxios.post(
-          `/user/update/${currentUser.user._id}`,
-          formData,
-          {
-            headers: {
-              Authorization: `${currentUser.token}`,
-            },
-          }
-        );
-        if (response.data.success === false) {
-          dispatch(updateUserFailure(response.data.message));
+        const response = await privateAxios.post(`/user/update/${currentUser.user._id}`, formData, {
+          headers: {
+            Authorization: `${currentUser.token}`,
+          },
+        });
+        if (response.success === false) {
+          dispatch(updateUserFailure(response.message));
           return;
         }
         dispatch(updateUserSuccess(response.data));
         console.log(response.data);
       }
     } catch (error) {
+      // dispatch(updateUserFailure(error.response.data.message))
       console.log(error);
     }
   };
-
+  
   const handleDeleteUser = async (e) => {
     e.preventDefault();
     dispatch(deleteUserStart());
     if (currentUser && currentUser.user && currentUser.user._id) {
       try {
-        const response = await privateAxios.delete(
-          `/user/delete/${currentUser.user._id}`,
-          {
-            headers: {
-              Authorization: `${currentUser.token}`,
-            },
-          }
-        );
-        if (response.data.success === false) {
+        const response = await privateAxios.delete(`/user/delete/${currentUser.user._id}`, formData, {
+          headers: {
+            Authorization: `${currentUser.token}`,
+          },
+        });
+        if (response.success === false) {
           dispatch(deleteUserFailure(response.data.message));
           return;
         }
         dispatch(deleteUserSuccess(response.data));
+        // console.log(response);
       } catch (err) {
         dispatch(deleteUserFailure(err.response.data.message));
       }
     }
   };
-
   return (
     <div className='p-10 max-w-lg mx-auto'>
-      <h1 className='text-3xl font-semibold text-center'></h1>
+      <h1 className="text-3xl font-semibold text-center"></h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input
           onChange={(e) => setFile(e.target.files[0])}
-          type='file'
+          type="file"
           ref={fileRef}
           accept='image/*'
           hidden
         />
         <img
           onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser?.user?.avatar}
-          alt='Profile'
+          src={formData.avatar || currentUser.user.avatar}
+          alt="Profile"
           className='rounded-full h-24 w-24 object-cover cursor-default self-center mt-2'
         />
         <p className='text-sm self-center'>
@@ -137,49 +134,40 @@ export const Profile = () => {
           )}
         </p>
         <input
-          type='text'
+          type="text"
           id='username'
           placeholder='username'
-          defaultValue={currentUser?.user?.username}
+          defaultValue={currentUser.user.username}
+          className='border p-3 rounded-lg focus: outline-none'
           onChange={handleChange}
-          required
-          className='border-b-2 border-gray-300 focus:outline-none focus:border-indigo-500 px-2 py-1'
         />
         <input
-          type='text'
+          type="email"
           id='email'
           placeholder='email'
-          defaultValue={currentUser?.user?.email}
+          defaultValue={currentUser.user.email}
+          className='border p-3 rounded-lg focus: outline-none'
           onChange={handleChange}
-          required
-          className='border-b-2 border-gray-300 focus:outline-none focus:border-indigo-500 px-2 py-1'
         />
         <input
-          type='password'
+          type="text"
           id='password'
           placeholder='password'
-          defaultValue={currentUser?.user?.password}
+          className='border p-3 rounded-lg focus: outline-none'
           onChange={handleChange}
-          required
-          className='border-b-2 border-gray-300 focus:outline-none focus:border-indigo-500 px-2 py-1'
         />
         <button
-          type='submit'
-          className='bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-700'
+          className='bg-slate-700 p-3 uppercase text-white rounded-md hover:opacity-95 disabled:opacity-80'
         >
-          Update
+          {loading ? 'Loading' : 'update'}
         </button>
       </form>
-      <p className='mt-4 text-center'>
-        <button
-          onClick={handleDeleteUser}
-          className='text-red-500 underline hover:text-red-700'
-        >
-          Delete Account
-        </button>
-      </p>
-     
-    
+      <div className='flex justify-between mt-5'>
+        <span onClick={handleDeleteUser} className='text-red-700 focus:opacity-90 cursor-pointer'>
+          Delete account
+        </span>
+      </div>
+      <p className='text-red-700 mt-5'>{error ? error : ''}</p>
     </div>
   );
 };
