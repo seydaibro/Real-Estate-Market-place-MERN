@@ -42,6 +42,8 @@ export const MyListing = () => {
     };
     handleShowListings();
   }, [currentUser._id]);
+  
+  console.log(currentUser.tocken)
 
   const handleListingDelete = async (listingId) => {
     try {
