@@ -178,23 +178,8 @@ export const Profile = () => {
           Delete Account
         </button>
       </p>
-      {showListingsErr && <p className='text-red-700 mt-4'>{showListingsErr}</p>}
-      <div className='mt-4'>
-        <h2 className='text-2xl font-semibold mb-2'>Your Listings</h2>
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>Error: {error}</p>
-        ) : (
-          <ul>
-            {userListings.map((listing) => (
-              <li key={listing._id}>
-                <Link to={`/listing/${listing._id}`}>{listing.title}</Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+     
+    
     </div>
   );
 };
