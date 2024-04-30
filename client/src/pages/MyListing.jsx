@@ -20,13 +20,13 @@ export const MyListing = () => {
   const [showListingsErr, setShowListingsErr] = useState(null);
   const [userListings, setUserListings] = useState([]);
   const { currentUser } = useSelector(state => state.user);
-   console.log("currentUser", currentUser?.user._id)
+   console.log("currentUser", currentUser?_id)
 
   useEffect(() => {
     const handleShowListings = async () => {
       try {
         setShowListingsErr(false);
-        const res = await privateAxios.get(`/user/listings/${currentUser?.user._id}`, {
+        const res = await privateAxios.get(`/user/listings/${currentUser?._id}`, {
           headers: {
             Authorization: `${currentUser.token}`,
           },
