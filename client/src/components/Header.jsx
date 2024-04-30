@@ -50,7 +50,7 @@ export const Header = () => {
         dispatch(logOutUserFailure(res.data.message));
         return;
       }
-      // Clear token from client-side storage
+    
       localStorage.removeItem('token');
       dispatch(logOutUserSuccess());
     } catch (err) {
