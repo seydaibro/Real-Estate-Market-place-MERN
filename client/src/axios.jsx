@@ -12,7 +12,7 @@
 
   import axios from "axios";
   //  const baseURL = "http://localhost:3000";
-   const baseURL  = "https://seyda-estate.onrender.com/api/"
+   const baseURL  = "https://real-estate-market-place-mern.onrender.com"
 
 export const privateAxios = axios.create({
   baseURL: baseURL,
