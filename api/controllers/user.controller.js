@@ -6,7 +6,8 @@ import {Listing} from '../modle/listing.model.js'
 
 export const updateUserInfo = async (req, res, next)=>{
    
-
+    const token = req.headers.authorization;
+    console.log("tokenFromUpdate", token)
    try{
     if(req.body.password){
         req.body.password = bcryptjs.hashSync(req.body.password, 10)
@@ -20,7 +21,7 @@ const updateUser = await User.findByIdAndUpdate(req.params.id,{
     }
 },{new: true})
  const {password,...rest} = updateUser._doc
- res.status(200).json(rest)
+ res.status(200).json({token, user: rest})
 
    }catch(err){
     next(err)

@@ -100,7 +100,7 @@ export const Header = () => {
                          <Link to='create-listing'><li className='hidden sm:inline text-slate-900 hover:underline'>Create Listing</li>  </Link>
                           <div  className='group relative   flex items-center justify-center'>
                             <img  className='rounded-full h-7 w-7  flex items-center  justify-center cursor-pointer object-cover'
-                            src={currentUser.avatar} alt="Profile"/>
+                            src={currentUser?.user.avatar} alt="Profile"/>
                             <Dropdown/>
                           </div>
                          

@@ -20,7 +20,7 @@ export const MyListing = () => {
   const [showListingsErr, setShowListingsErr] = useState(null);
   const [userListings, setUserListings] = useState([]);
   const { currentUser } = useSelector(state => state.user);
-   console.log("currentUser", currentUser?._id)
+  
 
   useEffect(() => {
     const handleShowListings = async () => {
@@ -41,7 +41,7 @@ export const MyListing = () => {
       }
     };
     handleShowListings();
-  }, [currentUser._id]);
+  }, [currentUser?.user._id]);
 
   console.log("currentuserToken",currentUser.token)
 
